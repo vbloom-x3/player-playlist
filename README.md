@@ -29,7 +29,7 @@ That installs two handy scripts:
 
 Make sure `~/.local/bin` is in your PATH!
 
-## Requirements for Installation
+### Requirements for Installation
 
 **player** : [ Visit ](https://github.com/vbloom-x3/player)
 
@@ -41,12 +41,6 @@ Make sure `~/.local/bin` is in your PATH!
 
 ```bash
 player-m3u8 "/path/to/your/playlist.m3u8"
-```
-
-### Or use the Python frontend:
-
-```bash
-playlist.py "/path/to/playlist.m3u8"
 ```
 
 You'll see something like:
