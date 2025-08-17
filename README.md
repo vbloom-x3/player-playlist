@@ -1,6 +1,6 @@
 # player-playlist
 
-**A frontend that brings `.m3u8` playlist magic to your player.** Now you can play whole playlists with *album → title/artist* styling, clean progress bars, and all the adorable terminal charm you’ve been shaping!
+**A frontend that brings `.m3u8` playlist magic to player.** Now you can play whole playlists with *album → title/artist* styling, clean progress bars, and all the adorable terminal charm I've shaped!
 
 ---
 
