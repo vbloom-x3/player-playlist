@@ -29,6 +29,10 @@ That installs two handy scripts:
 
 Make sure `~/.local/bin` is in your PATH!
 
+## Requirements for Installation
+
+**player** : [ Visit ](https://github.com/vbloom-x3/player)
+
 ---
 
 ## Usage
