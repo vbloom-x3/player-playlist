@@ -53,6 +53,7 @@ def main():
         try:
             # Call your existing player script for each track
             subprocess.run(["python3", "/home/{}/.local/bin/player.py".format(os.getenv("USER")), track])
+            subprocess.run(["python3", /home/{}/.local/bin/img.py", "cover.jpg"])
         except KeyboardInterrupt:
             print("\nStopped by user.")
             sys.exit(0)
