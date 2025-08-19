@@ -69,11 +69,11 @@ def main():
         try:
             # Call your existing player script for each track
             if not os.path.exists("cover.jpg"):
-                print("")                
+                print("")               
+                subprocess.run(["python3", "/home/{}/.local/bin/img.py".format(os.getenv("USER")), "cover.png"])
             else:
                 print("")
                 subprocess.run(["python3", "/home/{}/.local/bin/img.py".format(os.getenv("USER")), "cover.jpg"])
-            
             subprocess.run(["python3", "/home/{}/.local/bin/player.py".format(os.getenv("USER")), track])
         except KeyboardInterrupt:
             print("\nStopped by user.")
