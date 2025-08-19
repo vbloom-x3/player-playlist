@@ -43,6 +43,8 @@ def main():
         print(f"Error: File '{playlist_path}' not found")
         sys.exit(1)
     print(f"> Now playing : '{playlist_path}'")
+    print("")
+    print("> Song indexes: ")
     tracks = parse_m3u8(playlist_path)
     # print(tracks)
     if not tracks:
