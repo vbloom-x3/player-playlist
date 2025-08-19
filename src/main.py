@@ -42,17 +42,21 @@ def main():
     if not os.path.isfile(playlist_path):
         print(f"Error: File '{playlist_path}' not found")
         sys.exit(1)
-
+    print(f"> Now playing : '{playlist_path}'")
     tracks = parse_m3u8(playlist_path)
     if not tracks:
         print("No valid tracks found in the playlist!")
         sys.exit(1)
-
+    # img_file = os.path.dirname(file_path) + "cover.jpg"
     for track in tracks:
-        print(f"▶ Now playing: {track}")
         try:
             # Call your existing player script for each track
-            subprocess.run(["python3", "/home/{}/.local/bin/img.py".format(os.getenv("USER")), "cover.jpg"])
+            if not os.path.exists("cover.jpg"):
+                print("")                
+            else:
+                print("")
+                subprocess.run(["python3", "/home/{}/.local/bin/img.py".format(os.getenv("USER")), "cover.jpg"])
+            
             subprocess.run(["python3", "/home/{}/.local/bin/player.py".format(os.getenv("USER")), track])
         except KeyboardInterrupt:
             print("\nStopped by user.")
