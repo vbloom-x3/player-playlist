@@ -3,6 +3,9 @@ import sys
 import os
 import re
 from mutagen.flac import FLAC
+sys.path.append(os.path.expanduser("~/.local/bin"))
+
+from player import play_audio
 
 def normalize_path(path):
     # Convert Windows backslashes to Unix forward slashes
@@ -74,7 +77,7 @@ def main():
             else:
                 print("")
                 subprocess.run(["python3", "/home/{}/.local/bin/img.py".format(os.getenv("USER")), "cover.jpg"])
-            subprocess.run(["python3", "/home/{}/.local/bin/player.py".format(os.getenv("USER")), track])
+            play_audio(track, display_progress=True)
         except KeyboardInterrupt:
             print("\nStopped by user.")
             sys.exit(0)
