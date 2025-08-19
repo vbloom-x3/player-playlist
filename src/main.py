@@ -3,6 +3,7 @@ import subprocess
 import sys
 import os
 import re
+from mutagen.flac import FLAC
 
 def normalize_path(path):
     # Convert Windows backslashes to Unix forward slashes
@@ -44,11 +45,26 @@ def main():
         sys.exit(1)
     print(f"> Now playing : '{playlist_path}'")
     tracks = parse_m3u8(playlist_path)
+    # print(tracks)
     if not tracks:
         print("No valid tracks found in the playlist!")
         sys.exit(1)
     # img_file = os.path.dirname(file_path) + "cover.jpg"
+    index = 0
     for track in tracks:
+        index = index + 1
+        audio = FLAC(track)
+        title = audio.get("title", ["Unknown Title"])[0]
+        artist = audio.get("artist", ["Unknown Artist"])[0]
+        album = audio.get("album", ["Unknown Album"])[0]
+        full_title = f"{title} — {artist}"    
+        if index < 10:
+            print(f"0{index} -> {full_title}")
+        else:
+            print(f"{index} -> {full_title}")
+    print("")
+    start_index = int(input("Which song index do you want to start from? ")) - 1
+    for track in tracks[start_index:]:
         try:
             # Call your existing player script for each track
             if not os.path.exists("cover.jpg"):
