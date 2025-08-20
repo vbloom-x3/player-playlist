@@ -4,7 +4,7 @@ import os
 import re
 from mutagen.flac import FLAC
 sys.path.append(os.path.expanduser("~/.local/bin"))
-
+from img import image_to_ascii
 from player import play_audio
 
 def normalize_path(path):
@@ -73,10 +73,12 @@ def main():
             # Call your existing player script for each track
             if not os.path.exists("cover.jpg"):
                 print("")               
-                subprocess.run(["python3", "/home/{}/.local/bin/img.py".format(os.getenv("USER")), "cover.png"])
+                art = image_to_ascii("cover.png", new_width=25)
+                print(art)
             else:
                 print("")
-                subprocess.run(["python3", "/home/{}/.local/bin/img.py".format(os.getenv("USER")), "cover.jpg"])
+                art = image_to_ascii("cover.jpg", new_width=25)
+                print(art)
             play_audio(track, display_progress=True)
         except KeyboardInterrupt:
             print("\nStopped by user.")

@@ -5,13 +5,13 @@ from colorama import Style, init
 
 init(autoreset=True)
 
-# ASCII_CHARS = "@%#*+=-:. "
-ASCII_CHARS = "▒▒▒▒▒▒▒▒▒ "
-# ASCII_CHARS = "⣿⣿⣿⣿⣿⣿⣿⣿⣿ "
+# Character set for ASCII representation
+ASCII_CHARS = "▒▒▒▒▒▒▒▒▒ "  # dark to light
+
 def resize_image(image, new_width=25):
     width, height = image.size
     ratio = height / width
-    new_height = int(new_width * ratio * 0.50)
+    new_height = int(new_width * ratio * 0.50)  # adjust for font aspect ratio
     return image.resize((new_width, new_height))
 
 def grayify(image):
@@ -19,10 +19,10 @@ def grayify(image):
 
 def pixels_to_ascii(image):
     pixels = image.getdata()
-    chars = "".join([ASCII_CHARS[pixel * (len(ASCII_CHARS)-1) // 255] for pixel in pixels])
-    return chars
+    return "".join([ASCII_CHARS[pixel * (len(ASCII_CHARS)-1) // 255] for pixel in pixels])
 
 def colorize_ascii(image, ascii_str):
+    """Apply true color to each ASCII character using RGB values from original image."""
     colored_str = ""
     pixels = list(image.convert("RGB").getdata())
     width = image.width
@@ -34,31 +34,38 @@ def colorize_ascii(image, ascii_str):
     return colored_str
 
 def image_to_ascii(image_path, new_width=50):
+    """Convert an image to colored ASCII art."""
+    if not os.path.exists(image_path):
+        raise FileNotFoundError(f"File not found: {image_path}")
+
     try:
         image = Image.open(image_path)
     except Exception as e:
-        print(f"Unable to open image: {e}")
-        return
+        raise RuntimeError(f"Unable to open image: {e}")
 
     image = resize_image(image, new_width)
     image_gray = grayify(image)
     ascii_str = pixels_to_ascii(image_gray)
-    ascii_art = colorize_ascii(image, ascii_str)
-    return ascii_art
+    return colorize_ascii(image, ascii_str)
 
+def save_ascii_to_file(ascii_art, file_path="ascii_art.txt"):
+    """Save the ASCII art to a text file."""
+    with open(file_path, "w", encoding="utf-8") as f:
+        f.write(ascii_art)
+
+# CLI entry point
 if __name__ == "__main__":
-    
-# Read file from argument or stdin
+    # Read file from argument or stdin
     if len(sys.argv) > 1:
         path = sys.argv[1]
     else:
         path = sys.stdin.readline().strip()
 
     if not os.path.exists(path):
-        print("0x001F")
+        print("0x001F")  # error code like your original
+        sys.exit(1)
 
-    art = image_to_ascii(path, new_width=25)  # smol size
+    art = image_to_ascii(path, new_width=25)  # small size for CLI
     if art:
         print(art)
-        with open("ascii_art.txt", "w", encoding="utf-8") as f:
-            f.write(art)
+        save_ascii_to_file(art)
