@@ -8,14 +8,6 @@ from img import image_to_ascii
 from player import play_audio
 
 def normalize_path(path):
-    # Convert Windows backslashes to Unix forward slashes
-    path = path.replace("\\", "/")
-
-    # If it's an absolute Windows path like C:/Music/track.mp3, keep it usable on WSL/Linux
-    # Strip drive letters (C:/) if present
-    if re.match(r"^[A-Za-z]:/", path):
-        path = "/" + path[0].lower() + path[2:]
-
     return os.path.normpath(path)
 
 def parse_m3u8(file_path):
